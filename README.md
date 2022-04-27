@@ -5,15 +5,24 @@ DEBIAN 9
 
 ## Script POrt
 
-# Websocket/SSH:   80
-# Websocket/SSL:   444
+Websocket/SSH:   80
+
+Websocket/SSL:   444
+
 Websocket/OVPN:  8888
+
 OpenSSH:         22,225
+
 Stunnel:         443
+
 DropbearSSH:     550,500
+
 Squid:           8080
+
 OpenVPN/Tcp:     1194
+
 OpenVPN/Udp:     53
+
 OpenVPN SSL:     587
 
 ## SCRIPT LINK HERE
@@ -30,11 +39,17 @@ DEBIAN 9
 ## Script Port
 
 Websocket/SSH:   80
+
 Websocket/SSL:   444
+
 Slowdns:         2222
+
 OpenSSH:         22,225
+
 Stunnel:         443
+
 DropbearSSH:     550,500
+
 Squid:           8080
 
 ## SCRIPT LINK HERE
