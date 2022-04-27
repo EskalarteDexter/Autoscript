@@ -5,9 +5,8 @@ DEBIAN 9
 
 ## Sript POrt
 
-Websocket/SSH:   80
-
-Websocket/SSL:   444
+#Websocket/SSH:   80
+#Websocket/SSL:   444
 Websocket/OVPN:  8888
 OpenSSH:         22,225
 Stunnel:         443
