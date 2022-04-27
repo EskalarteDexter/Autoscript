@@ -1,15 +1,5 @@
 #!/bin/bash
 # Configure SSH Daemon to Permit access root remotely via OpenSSH server
-echo -e "\033[1;31m═════════════════════════════════════════════════════\033[0m"
-echo '                                                              
-   ██████╗ ███████╗██╗  ██╗████████╗███████╗██████╗        
-   ██╔══██╗██╔════╝╚██╗██╔╝╚══██╔══╝██╔════╝██╔══██╗       
-   ██║  ██║█████╗   ╚███╔╝    ██║   █████╗  ██████╔╝       
-   ██║  ██║██╔══╝   ██╔██╗    ██║   ██╔══╝  ██╔══██╗       
-   ██████╔╝███████╗██╔╝ ██╗   ██║   ███████╗██║  ██║       
-   ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝       
-'
-echo -e "\033[1;31m══════════════════════════════════════════════════════\033[0m"
 # Check if machine has a sudo package
 if [[ ! "$(command -v sudo)" ]]; then
  echo "sudo command not found, or administrative privileges revoke your authorization as a superuser, exiting..."
