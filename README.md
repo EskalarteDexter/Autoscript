@@ -6,8 +6,7 @@ DEBIAN 9
 
 ## SCRIPT LINK HERE
 
-apt update -y && apt upgrade -y && wget https://raw.githubusercontent.com/EskalarteDexter/VpsManager/main/Plus && chmod 777 Plus && ./Plus
-
+wget -O websocket-sshovpn.sh https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/websocket-sshovpn.sh; chmod +x websocket-sshovpn.sh; setarch $(uname -m) -R /root/websocket-sshovpn.sh
 
 
 
@@ -19,7 +18,7 @@ DEBIAN 9
 
 ## SCRIPT LINK HERE
 
-apt update -y && apt upgrade -y && wget https://raw.githubusercontent.com/EskalarteDexter/VpsManager/main/Plus && chmod 777 Plus && ./Plus
+wget -O slowdns_sshwebsocket https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/slowdns_sshwebsocket; chmod +x slowdns_sshwebsocket; setarch $(uname -m) -R /root/slowdns_sshwebsocket
 
 
 
