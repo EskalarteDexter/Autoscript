@@ -48,7 +48,7 @@ wget https://github.com/xamjyss143/slow-dns/raw/main/dns-server; chmod +x dns-se
 wget https://raw.githubusercontent.com/xamjyss143/slow-dns/main/remove-slow; chmod +x remove-slow
 wget https://raw.githubusercontent.com/xamjyss143/slow-dns/main/slowdns-info; chmod +x slowdns-info
 wget https://raw.githubusercontent.com/xamjyss143/slow-dns/main/slowdns-drop; chmod +x slowdns-drop
-wget http://script.psytech-vpn.com/DexterEskalarte/slowdns-ssh; chmod +x slowdns-ssh
+wget https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/slowdns-ssh; chmod +x slowdns-ssh
 wget https://raw.githubusercontent.com/xamjyss143/slow-dns/main/slowdns-ssl; chmod +x slowdns-ssl
 wget https://raw.githubusercontent.com/xamjyss143/slow-dns/main/slowdns-socks; chmod +x slowdns-socks
 wget https://raw.githubusercontent.com/xamjyss143/slow-dns/main/slowdns; chmod +x slowdns; cp slowdns /bin/
