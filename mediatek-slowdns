@@ -1850,19 +1850,6 @@ echo '' > /root/.bash_history && history -c && echo '' > /var/log/syslog
 
 F1='/etc/modules-load.d/modules.conf' && { [[ $(grep -cE '^tcp_bbr$' $F1) -ge 1 ]] && echo "bbr already added" || echo "tcp_bbr" >> "$F1"; } && modprobe tcp_bbr
 F2='net.core.default_qdisc' && F3='net.ipv4.tcp_congestion_control' && sed -i "/^$F2.*/d;/^$F3.*/d" /etc/sysctl{.conf,.d/*.conf} && echo -e "${F2}=fq\n${F3}=bbr" >> /etc/sysctl.d/98-bbr.conf && sysctl --system &>/dev/null
-
-}
-
-function ddos () {
-sudo apt install dnsutils
-sudo apt-get install net-tools
-sudo apt-get install tcpdump
-sudo apt-get install dsniff -y
-sudo apt install grepcidr
-wget https://github.com/jgmdev/ddos-deflate/archive/master.zip -O ddos.zip
-unzip ddos.zip
-cd ddos-deflate-master
-./install.sh
 }
 
 function setting() {
@@ -1961,7 +1948,6 @@ fi
  gatorade
  gatorade1
  BBR
- ddos
  slowdns
  setting
  remove
