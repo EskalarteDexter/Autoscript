@@ -332,9 +332,6 @@ chmod +x /etc/rc.local
 systemctl enable rc-local
 systemctl start rc-local.service
 }
- 
-}
-
 
 function InstSSH(){
  # Removing some duplicated sshd server configs
