@@ -180,9 +180,6 @@ function  Instupdate() {
  apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python dbus libxml-parser-perl -y
  apt-get install shared-mime-info jq -y
 
- # Installing a text colorizer
-
-
  # Trying to remove obsolette packages after installation
  apt-get autoremove -y
  
@@ -209,12 +206,133 @@ if [[ "$(command -v privoxy)" ]]; then
  rm -f /tmp/privoxy.deb
 fi
 
- # Installing OpenVPN by pulling its repository inside sources.list file
+# Installing OpenVPN by pulling its repository inside sources.list file
  #rm -rf /etc/apt/sources.list.d/openvpn*
  echo "deb http://build.openvpn.net/debian/openvpn/stable $(lsb_release -sc) main" >/etc/apt/sources.list.d/openvpn.list && apt-key del E158C569 && wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg | apt-key add -
  wget -qO security-openvpn-net.asc "https://keys.openpgp.org/vks/v1/by-fingerprint/F554A3687412CFFEBDEFE0A312F5F7B42F2B01E7" && gpg --import security-openvpn-net.asc
  apt-get update -y
  apt-get install openvpn -y
+ 
+ ## Running FFSend installation in background
+rm -rf {/usr/bin/ffsend,/usr/local/bin/ffsend}
+printf "%b\n" "\e[32m[\e[0mInfo\e[32m]\e[0m\e[97m running FFSend installation on background\e[0m"
+screen -S ffsendinstall -dm bash -c "curl -4skL "https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/DebianNew/ffsend-v0.2.65-linux-x64-static" -o /usr/bin/ffsend && chmod a+x /usr/bin/ffsend"
+hostnamectl set-hostname localhost &> /dev/null
+printf "%b\n" "\e[32m[\e[0mInfo\e[32m]\e[0m\e[97m running DDoS-deflate installation on background\e[0m"
+cat <<'ddosEOF'> /tmp/install-ddos.bash
+#!/bin/bash
+if [[ -e /etc/ddos ]]; then
+ printf "%s\n" "DDoS-deflate already installed" && exit 1
+else
+ curl -4skL "https://github.com/jgmdev/ddos-deflate/archive/master.zip" -o ddos.zip
+ unzip -qq ddos.zip
+ rm -rf ddos.zip
+ cd ddos-deflate-master
+ echo -e "/r/n/r/n"
+ ./install.sh &> /dev/null
+ cd .. && rm -rf ddos-deflate-master
+ systemctl start ddos &> /dev/null
+ systemctl enable ddos &> /dev/null
+fi
+ddosEOF
+screen -S ddosinstall -dm bash -c "bash /tmp/install-ddos.bash && rm -f /tmp/install-ddos.bash"
+
+printf "%b\n" "\e[32m[\e[0mInfo\e[32m]\e[0m\e[97m running Iptables configuration on background\e[0m"
+cat <<'iptEOF'> /tmp/iptables-config.bash
+#!/bin/bash
+function ip_address(){
+  local IP="$( ip addr | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -Ev "^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\.|^0\." | head -n 1 )"
+  [ -z "${IP}" ] && IP="$(curl -4s ipv4.icanhazip.com)"
+  [ -z "${IP}" ] && IP="$(curl -4s ipinfo.io/ip)"
+  [ ! -z "${IP}" ] && echo "${IP}" || echo 'ipaddress'
+}
+IPADDR="$(ip_address)"
+PNET="$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)"
+CIDR="172.29.0.0/16"
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -t nat -F
+iptables -t mangle -F
+iptables -F
+iptables -X
+iptables -A INPUT -s $IPADDR -p tcp -m multiport --dport 1:65535 -j ACCEPT
+iptables -A INPUT -s $IPADDR -p udp -m multiport --dport 1:65535 -j ACCEPT
+iptables -A INPUT -p tcp --dport 25 -j REJECT   
+iptables -A FORWARD -p tcp --dport 25 -j REJECT
+iptables -A OUTPUT -p tcp --dport 25 -j REJECT
+iptables -I FORWARD -s $CIDR -j ACCEPT
+iptables -t nat -A POSTROUTING -s $CIDR -o $PNET -j MASQUERADE
+iptables -t nat -A POSTROUTING -s $CIDR -o $PNET -j SNAT --to-source $IPADDR
+iptables -A INPUT -m string --algo bm --string "BitTorrent" -j REJECT
+iptables -A INPUT -m string --algo bm --string "BitTorrent protocol" -j REJECT
+iptables -A INPUT -m string --algo bm --string ".torrent" -j REJECT
+iptables -A INPUT -m string --algo bm --string "torrent" -j REJECT
+iptables -A INPUT -m string --string "BitTorrent" --algo kmp -j REJECT
+iptables -A INPUT -m string --string "BitTorrent protocol" --algo kmp -j REJECT
+iptables -A INPUT -m string --string "bittorrent-announce" --algo kmp -j REJECT
+iptables -A FORWARD -m string --algo bm --string "BitTorrent" -j REJECT
+iptables -A FORWARD -m string --algo bm --string "BitTorrent protocol" -j REJECT
+iptables -A FORWARD -m string --algo bm --string ".torrent" -j REJECT
+iptables -A FORWARD -m string --algo bm --string "torrent" -j REJECT
+iptables -A FORWARD -m string --string "BitTorrent" --algo kmp -j REJECT
+iptables -A FORWARD -m string --string "BitTorrent protocol" --algo kmp -j REJECT
+iptables -A FORWARD -m string --string "bittorrent-announce" --algo kmp -j REJECT
+iptables -A OUTPUT -m string --algo bm --string "BitTorrent" -j REJECT
+iptables -A OUTPUT -m string --algo bm --string "BitTorrent protocol" -j REJECT
+iptables -A OUTPUT -m string --algo bm --string ".torrent" -j REJECT
+iptables -A OUTPUT -m string --algo bm --string "torrent" -j REJECT
+iptables -A OUTPUT -m string --string "BitTorrent" --algo kmp -j REJECT
+iptables -A OUTPUT -m string --string "BitTorrent protocol" --algo kmp -j REJECT
+iptables -A OUTPUT -m string --string "bittorrent-announce" --algo kmp -j REJECT
+iptables-save > /etc/iptables/rules.v4
+iptEOF
+screen -S configIptables -dm bash -c "bash /tmp/iptables-config.bash && rm -f /tmp/iptables-config.bash"
+
+echo "================= Auto Installer badVPN V 3  ======================"
+# buat directory badvpn
+cd /usr/bin
+mkdir build
+cd build
+wget https://github.com/ambrop72/badvpn/archive/1.999.130.tar.gz
+tar xvzf 1.999.130.tar.gz
+cd badvpn-1.999.130
+cmake -DBUILD_NOTHING_BY_DEFAULT=1 -DBUILD_TUN2SOCKS=1 -DBUILD_UDPGW=1
+make install
+make -i install
+
+# auto start badvpn single port
+sed -i '$ i\screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300 --max-clients 1000 --max-connections-for-client 10' /etc/rc.local
+screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300 --max-clients 500 --max-connections-for-client 20 &
+cd
+
+# auto start badvpn second port
+#cd /usr/bin/build/badvpn-1.999.130
+sed -i '$ i\screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7200 --max-clients 1000 --max-connections-for-client 10' /etc/rc.local
+screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7200 --max-clients 500 --max-connections-for-client 20 &
+cd
+
+# auto start badvpn second port
+sed -i '$ i\screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7100 --max-clients 1000 --max-connections-for-client 10' /etc/rc.local
+screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7100 --max-clients 500 --max-connections-for-client 20 &
+cd
+
+# permition
+chmod +x /usr/local/bin/badvpn-udpgw
+chmod +x /usr/local/share/man/man7/badvpn.7
+chmod +x /usr/local/bin/badvpn-tun2socks
+chmod +x /usr/local/share/man/man8/badvpn-tun2socks.8
+chmod +x /usr/bin/build
+}
+
+function rc_local(){
+wget --no-check-certificate https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/rc-local.service -O /etc/systemd/system/rc-local.service
+printf '%s\n' '#!/bin/bash' 'exit 0' | sudo tee -a /etc/rc.local
+chmod +x /etc/rc.local
+systemctl enable rc-local
+systemctl start rc-local.service
+}
+ 
 }
 
 
@@ -675,14 +793,6 @@ fi
 
  # Allow IPv4 Forwarding
  echo 'net.ipv4.ip_forward=1' > /etc/sysctl.d/20-openvpn.conf && sysctl --system &> /dev/null && echo 1 > /proc/sys/net/ipv4/ip_forward
-
-
- # Iptables Rule for OpenVPN server
- #PUBLIC_INET="$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)"
- #IPCIDR='10.200.0.0/16'
- #iptables -I FORWARD -s $IPCIDR -j ACCEPT
- #iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j MASQUERADE
- #iptables -t nat -A POSTROUTING -s $IPCIDR -o $PUBLIC_INET -j MASQUERADE
 
  # Installing Firewalld
  apt install firewalld -y
@@ -1768,6 +1878,7 @@ systemctl restart yakult
 systemctl daemon-reload
 systemctl enable gatorade
 systemctl restart gatorade
+systemctl restart squid.service
 }
 
 function remove() {
@@ -1815,6 +1926,9 @@ fi
 
   echo -e "\033[0;35mUpdating Libraries....\033[0m"
  Instupdate
+ 
+ # Configure RC.LOCAL
+ rc_local
 
  # Configure OpenSSH and Dropbear
  echo -e "\033[0;35mConfiguring ssh...\033[0m"
