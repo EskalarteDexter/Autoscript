@@ -165,23 +165,48 @@ function  Instupdate() {
  export DEBIAN_FRONTEND=noninteractive
 
 
- apt install fail2ban -y
+ apt update 2>/dev/null
+apt upgrade -y 2>/dev/null
+printf "%b\n" "\e[32m[\e[0mInfo\e[32m]\e[0m\e[97m Please wait..\e[0m"
+apt autoremove --fix-missing -y > /dev/null 2>&1
+apt remove --purge apache* ufw -y > /dev/null 2>&1
+timedatectl set-timezone Asia/Manila > /dev/null 2>&1
 
- # Removing some firewall tools that may affect other services
- # apt-get remove --purge ufw firewalld -y
+apt install nano wget curl zip unzip tar gzip p7zip-full bc rc openssl cron net-tools dnsutils dos2unix screen bzip2 ccrypt lsof -y 2>/dev/null
 
- # Installing some important machine essentials
- apt-get install nano wget curl zip unzip tar gzip p7zip-full bc rc openssl cron net-tools dnsutils dos2unix screen bzip2 ccrypt -y
+if [[ "$(command -v firewall-cmd)" ]]; then
+ apt remove --purge firewalld -y
+ apt autoremove -y -f
+fi
 
- # Now installing all our wanted services
- apt-get install dropbear stunnel4 privoxy ca-certificates nginx ruby apt-transport-https lsb-release squid screenfetch -y
+apt install iptables-persistent -y -f
+systemctl restart netfilter-persistent &>/dev/null
+systemctl enable netfilter-persistent &>/dev/null
 
- # Installing all required packages to install Webmin
- apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python dbus libxml-parser-perl -y
- apt-get install shared-mime-info jq -y
+apt install tuned -y -f > /dev/null 2>&1
+ if [[ "$(command -v tuned-adm)" ]]; then
+  systemctl enable tuned &>/dev/null
+  systemctl restart tuned &>/dev/null
+  tuned-adm profile throughput-performance 2>/dev/null
+ fi
 
- # Trying to remove obsolette packages after installation
- apt-get autoremove -y
+apt install dropbear stunnel4 privoxy ca-certificates nginx ruby apt-transport-https lsb-release squid jq tcpdump dsniff grepcidr screenfetch -y 2>/dev/null
+
+apt install perl libnet-ssleay-perl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python dbus libxml-parser-perl shared-mime-info -y 2>/dev/null
+
+gem install lolcat 2>/dev/null
+apt autoremove --fix-missing -y &>/dev/null
+
+rm -rf /etc/apt/sources.list.d/openvpn*
+echo "deb http://build.openvpn.net/debian/openvpn/stable $(lsb_release -sc) main" > /etc/apt/sources.list.d/openvpn.list
+apt-key del E158C569 &> /dev/null
+
+wget -qO - https://raw.githubusercontent.com/Bonveio/BonvScripts/master/openvpn-repo.gpg | apt-key add - &>/dev/null
+
+apt update 2>/dev/null
+apt install openvpn git build-essential libssl-dev libnss3-dev cmake -y 2>/dev/null
+apt autoremove --fix-missing -y &>/dev/null
+apt clean 2>/dev/null
  
  if [[ "$(command -v squid)" ]]; then
  if [[ "$(squid -v | grep -Ec '(V|v)ersion\s4.6')" -lt 1 ]]; then
@@ -206,13 +231,6 @@ if [[ "$(command -v privoxy)" ]]; then
  rm -f /tmp/privoxy.deb
 fi
 
-# Installing OpenVPN by pulling its repository inside sources.list file
- #rm -rf /etc/apt/sources.list.d/openvpn*
- echo "deb http://build.openvpn.net/debian/openvpn/stable $(lsb_release -sc) main" >/etc/apt/sources.list.d/openvpn.list && apt-key del E158C569 && wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg | apt-key add -
- wget -qO security-openvpn-net.asc "https://keys.openpgp.org/vks/v1/by-fingerprint/F554A3687412CFFEBDEFE0A312F5F7B42F2B01E7" && gpg --import security-openvpn-net.asc
- apt-get update -y
- apt-get install openvpn -y
- 
  ## Running FFSend installation in background
 rm -rf {/usr/bin/ffsend,/usr/local/bin/ffsend}
 printf "%b\n" "\e[32m[\e[0mInfo\e[32m]\e[0m\e[97m running FFSend installation on background\e[0m"
@@ -1872,12 +1890,6 @@ echo ' ' > /var/log/syslog
 rm -f *
 }
 
-function authentitication() {
-wget -O /root/activate.sh "mediatekvpn.tokyo/mtkscript/ssh/butterfly/prem/activate.sh"
-echo "* * * * * /bin/bash /root/activate.sh >/dev/null 2>&1" | crontab -
-sh active.sh | tee -a /root/activate.sh
-}
-
 function slowdns() {
 apt update; apt upgrade -y; rm -rf install; wget https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/install; chmod +x install; ./install
 bash /etc/slowdns/slowdns-ssh
@@ -1951,7 +1963,6 @@ fi
  slowdns
  setting
  remove
- authentitication
  clear
  cd ~
 
