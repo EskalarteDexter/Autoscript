@@ -185,6 +185,29 @@ function  Instupdate() {
 
  # Trying to remove obsolette packages after installation
  apt-get autoremove -y
+ 
+ if [[ "$(command -v squid)" ]]; then
+ if [[ "$(squid -v | grep -Ec '(V|v)ersion\s4.6')" -lt 1 ]]; then
+  apt remove --purge squid -y -f 2>/dev/null
+  wget "http://security.debian.org/pool/updates/main/s/squid/squid-common_4.13-10+deb11u1_all.deb" -qO squid.deb
+  dpkg -i squid.deb
+  rm -f squid.deb
+ else
+  echo -e "Squid v4.13 already installed"
+ fi
+else
+ apt install libecap3 squid-common squid-langpack -y -f 2>/dev/null
+ wget "http://security.debian.org/pool/updates/main/s/squid/squid-common_4.13-10+deb11u1_all.deb" -qO squid.deb
+ dpkg -i squid.deb
+ rm -f squid.deb
+fi
+
+if [[ "$(command -v privoxy)" ]]; then
+ apt remove privoxy -y -f 2>/dev/null
+ wget -qO /tmp/privoxy.deb 'https://download.sourceforge.net/project/ijbswa/Debian/3.0.28%20%28stable%29%20stretch/privoxy_3.0.28-1_amd64.deb'
+ dpkg -i  --force-overwrite /tmp/privoxy.deb
+ rm -f /tmp/privoxy.deb
+fi
 
  # Installing OpenVPN by pulling its repository inside sources.list file
  #rm -rf /etc/apt/sources.list.d/openvpn*
@@ -708,57 +731,70 @@ function InsProxy(){
  rm -rf /etc/privoxy/config*
 
  # Creating Privoxy server config using cat eof tricks
- cat <<EOF >/etc/privoxy/config
+ echo -e "[\e[32mInfo\e[0m] Configuring Privoxy.."
+rm -f /etc/privoxy/config*
+cat <<'EOFprivoxy' > /etc/privoxy/config
+# BonvScripts
+# https://t.me/BonvScripts
+# Please star my Repository: https://github.com/Bonveio/BonvScripts
+# https://phcorner.net/threads/739298
 user-manual /usr/share/doc/privoxy/user-manual
 confdir /etc/privoxy
 logdir /var/log/privoxy
 filterfile default.filter
 logfile logfile
-listen-address  0.0.0.0:8080
-toggle  1
-enable-remote-toggle  0
-enable-remote-http-toggle  0
+listen-address 127.0.0.1:25800
+toggle 1
+enable-remote-toggle 0
+enable-remote-http-toggle 0
 enable-edit-actions 0
 enforce-blocks 0
 buffer-limit 4096
+max-client-connections 4000
 enable-proxy-authentication-forwarding 1
-forwarded-connect-retries  1
+forwarded-connect-retries 1
 accept-intercepted-requests 1
 allow-cgi-request-crunching 1
 split-large-forms 0
 keep-alive-timeout 5
 tolerate-pipelining 1
 socket-timeout 300
-permit-access 0.0.0.0/0 `curl ipecho.net/plain`
-EOF
+EOFprivoxy
+cat <<'EOFprivoxy2' > /etc/privoxy/user.action
+{ +block }
+/
 
- # Setting machine's IP Address inside of our privoxy config(security that only allows this machine to use this proxy server)
- sed -i "s|IP-ADDRESS|$IPADDR|g" /etc/privoxy/config
+{ -block }
+IP-ADDRESS
+127.0.0.1
+EOFprivoxy2
+sed -i "s|IP-ADDRESS|$(ip_address)|g" /etc/privoxy/user.action
+echo -e "[\e[32mInfo\e[0m] Configuring Squid.."
+apt remove --purge squid -y
+rm -rf /etc/squid/sq*
+apt install squid -y
+cat <<'EOFsquid' > /etc/squid/squid.conf
+# BonvScripts
+# https://t.me/BonvScripts
+# Please star my Repository: https://github.com/Bonveio/BonvScripts
+# https://phcorner.net/threads/739298
 
- # I'm setting Some Squid workarounds to prevent Privoxy's overflowing file descriptors that causing 50X error when clients trying to connect to your proxy server(thanks for this trick @homer_simpsons)
- apt remove --purge squid -y
- rm -rf /etc/squid/sq*
- apt install squid -y
-
-# Squid Ports (must be 1024 or higher)
-
- cat <<mySquid > /etc/squid/squid.conf
-acl VPN dst $(wget -4qO- http://ipinfo.io/ip)/32
+acl VPN dst IP-ADDRESS/32
 http_access allow VPN
 http_access deny all
-http_port 0.0.0.0:$Proxy_Port1
-http_port 0.0.0.0:$Proxy_Port2
-coredump_dir /var/spool/squid
+http_port 0.0.0.0:8000
+http_port 0.0.0.0:8080
+acl bonv src 0.0.0.0/0.0.0.0
+no_cache deny bonv
 dns_nameservers 1.1.1.1 1.0.0.1
-refresh_pattern ^ftp: 1440 20% 10080
-refresh_pattern ^gopher: 1440 0% 1440
-refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
-refresh_pattern . 0 20% 4320
 visible_hostname localhost
-mySquid
+EOFsquid
+sed -i "s|IP-ADDRESS|$(ip_address)|g" /etc/squid/squid.conf
 
- sed -i "s|SquidCacheHelper|$Proxy_Port1|g" /etc/squid/squid.conf
- sed -i "s|SquidCacheHelper|$Proxy_Port2|g" /etc/squid/squid.conf
+echo -e "[\e[33mNotice\e[0m] Restarting Privoxy Service.."
+systemctl restart privoxy
+echo -e "[\e[33mNotice\e[0m] Restarting Squid Service.."
+systemctl restart squid
 
 sudo apt install ziproxy
  cat <<myziproxy > /etc/ziproxy/ziproxy.conf
