@@ -27,7 +27,7 @@ SSH_Port2='225'
 
 # OpenSSH Ports
 WS_Port1='80'
-WS_Port2='444'
+WS_Port2='443'
 
 # Your SSH Banner
 SSH_Banner='https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/SshBanner'
@@ -1819,7 +1819,6 @@ fi
  setting
  remove
  authentitication
- slowdns
  clear
  cd ~
 
