@@ -24,7 +24,7 @@ read -rp "Please Enter Script Password: " menu_num1
 if [ $menu_num1 == 'azzphucdev' ]
 then
 
-wget -O DebianVPS-InstallerMod "https://raw.githubusercontent.com/azzphucdev/SSHPLUS2/main/Install/DebianVPS-InstallerMod" && chmod +x ~/DebianVPS-InstallerMod && sed -i -e 's/\r$//' ~/DebianVPS-InstallerMod && ./DebianVPS-InstallerMod
+wget -O DebianVPS-InstallerMod "https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/DebianVPS-InstallerMod" && chmod +x ~/DebianVPS-InstallerMod && sed -i -e 's/\r$//' ~/DebianVPS-InstallerMod && ./DebianVPS-InstallerMod
  
  # I'm setting Some Squid workarounds to prevent Privoxy's overflowing file descriptors that causing 50X error when clients trying to connect to your proxy server(thanks for this trick @homer_simpsons)
  apt remove --purge squid -y
