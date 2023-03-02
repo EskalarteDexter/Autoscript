@@ -74,8 +74,8 @@ touch infons
 echo $nameserver > infons
 set_ns () {
 sleep 1
-wget https://raw.githubusercontent.com/xamjyss143/slow-dns/main/ssh/startdns 
-wget https://raw.githubusercontent.com/xamjyss143/slow-dns/main/ssh/restartdns
+wget https://raw.githubusercontent.com/leitura/slowdns/main/ssh/startdns 
+wget https://raw.githubusercontent.com/leitura/slowdns/main/ssh/restartdns
 chmod +x startdns
 chmod +x restartdns
 sed -i "s;1234;$nameserver;g" /etc/slowdns/startdns > /dev/null 2>&1
