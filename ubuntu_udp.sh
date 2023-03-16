@@ -59,10 +59,10 @@ echo '{
   "up_mbps": 100,
   "down_mbps": 100,
   "disable_udp": false,
-  "obfs": "mtk",
+  "obfs": "adonis",
   "auth": {
     "mode": "passwords",
-    "config": ["vpnmtk", "stronghold3"]
+    "config": ["tunnelcore", "tunnelcorev2"]
   }
 }
 ' >> /etc/hysteria/config.json
