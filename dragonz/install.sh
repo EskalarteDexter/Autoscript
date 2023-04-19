@@ -608,24 +608,18 @@ function ws_link() {
   WS_PATH=$(cat ${xray_conf_dir}/config.json | jq .inbounds[0].settings.fallbacks[2].path | tr -d '"')
   WS_PATH_WITHOUT_SLASH=$(echo $WS_PATH | tr -d '/')
   DOMAIN=$(cat ${domain_tmp_dir}/domain)
-
-  print_ok "URL Link (VLESS + TCP + TLS)"
+  echo -e ""
+  echo -e ""
+  print_ok "Dexter Eskalarte link config (VLESS + TCP + TLS)"
   print_ok "vless://$UUID@$DOMAIN:$PORT?security=tls#TLS_wulabing-$DOMAIN"
-
-  print_ok "URL Link (VLESS + TCP + XTLS)"
+  echo -e ""
+  echo -e ""
+  print_ok "Dexter Eskalarte link config (VLESS + TCP + XTLS)"
   print_ok "vless://$UUID@$DOMAIN:$PORT?security=xtls&flow=$FLOW#XTLS_wulabing-$DOMAIN"
-
-  print_ok "URL Link (VLESS + WebSocket + TLS)"
+  echo -e ""
+  echo -e ""
+  print_ok "Dexter Eskalarte link config (VLESS + WebSocket + TLS)"
   print_ok "vless://$UUID@$DOMAIN:$PORT?type=ws&security=tls&path=%2f${WS_PATH_WITHOUT_SLASH}%2f#WS_TLS_wulabing-$DOMAIN"
-  print_ok "-------------------------------------------------"
-  print_ok "URL 二QR code(VLESS + TCP + TLS) (Please visit in browser)"
-  print_ok "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless://$UUID@$DOMAIN:$PORT?security=tls%23TLS_wulabing-$DOMAIN"
-
-  print_ok "URL 二QR code (VLESS + TCP + XTLS) (Please visit in browser)"
-  print_ok "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless://$UUID@$DOMAIN:$PORT?security=xtls%26flow=$FLOW%23XTLS_wulabing-$DOMAIN"
-
-  print_ok "URL 二QR code (VLESS + WebSocket + TLS) (Please visit in browser)"
-  print_ok "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=vless://$UUID@$DOMAIN:$PORT?type=ws%26security=tls%26path=%2f${WS_PATH_WITHOUT_SLASH}%2f%23WS_TLS_wulabing-$DOMAIN"
 }
 
 function basic_information() {
