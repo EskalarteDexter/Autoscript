@@ -2,9 +2,9 @@
 
 #====================================================
 #	System Request:Debian 9+/Ubuntu 18.04+/Centos 7+
-#	Author:	wulabing
+#	Author:	Dexter Eskalarte
 #	Dscription: Xray onekey Management
-#	email: admin@wulabing.com
+#	email: admin@dextereskalarte.com
 #====================================================
 
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -717,7 +717,7 @@ $RESET"
   echo -e "${Green}2.${Font}  Install Xray (VLESS + TCP + XTLS / TLS + Nginx and VLESS + TCP + TLS + Nginx + WebSocket)"
   echo -e ""
   echo -e ""
-  read -rp "Please enter the number：" menu_num
+  read -rp "Select Number (Default 2): " menu_num
   case $menu_num in
   0)
     update_sh
