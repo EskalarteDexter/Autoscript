@@ -707,14 +707,17 @@ menu() {
    ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝		
 $RESET"
   echo -e ""
-  echo -e "\thttps://github.com/wulabing\n"
+ 
 
   echo -e "Currently installed version：${shell_mode}"
+  echo -e ""
   echo -e "—————————————— Installation Guide ——————————————"""
+  echo -e """
   echo -e "${Green}0.${Font}  upgrade script"
   echo -e "${Green}1.${Font}  Install Xray (VLESS + TCP + XTLS / TLS + Nginx)"
   echo -e "${Green}2.${Font}  Install Xray (VLESS + TCP + XTLS / TLS + Nginx and VLESS + TCP + TLS + Nginx + WebSocket)"
-  
+  echo -e ""
+  echo -e ""
   read -rp "Please enter the number：" menu_num
   case $menu_num in
   0)
