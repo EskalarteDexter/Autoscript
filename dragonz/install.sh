@@ -631,7 +631,9 @@ function basic_information() {
 function basic_ws_information() {
   print_ok "VLESS+TCP+TLS+Nginx with WebSocket mixed mode installed successfully"
   ws_information
+  echo -e ""
   print_ok "————————————————————————"
+  echo -e ""
   vless_xtls-rprx-direct_information
   ws_link
 }
