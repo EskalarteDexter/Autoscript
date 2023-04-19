@@ -298,7 +298,8 @@ function update_sh() {
     [yY][eE][sS] | [yY])
       wget -N --no-check-certificate https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/dragonz/install.sh
       print_ok "update completed"
-      print_ok "You can execute this program through bash $0"
+      print_ok "This script was made by: Dexter Eskalarte"
+      print_ok "This script is not for sale"
       exit 0
       ;;
     *) ;;
