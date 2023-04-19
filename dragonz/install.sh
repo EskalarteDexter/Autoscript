@@ -707,11 +707,10 @@ menu() {
    ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝		
 $RESET"
   echo -e ""
- 
-
+  echo -e ""
   echo -e "Currently installed version：${shell_mode}"
   echo -e ""
-  echo -e "—————————————— Installation Guide ——————————————""
+  echo -e "—————————————— Installation Guide ——————————————"""
   echo -e ""
   echo -e "${Green}0.${Font}  upgrade script"
   echo -e "${Green}1.${Font}  Install Xray (VLESS + TCP + XTLS / TLS + Nginx)"
