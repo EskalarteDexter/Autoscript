@@ -86,13 +86,13 @@ function system_check() {
     print_ok "The current system is Centos ${VERSION_ID} ${VERSION}"
     INS="yum install -y"
     ${INS} wget
-    wget -N -P /etc/yum.repos.d/ https://raw.githubusercontent.com/wulabing/Xray_onekey/${github_branch}/basic/nginx.repo
+    wget -N -P /etc/yum.repos.d/ https://raw.githubusercontent.com/EskalarteDexter/V2rayFiles/${github_branch}/nginx.repo
 
 
   elif [[ "${ID}" == "ol" ]]; then
     print_ok "The current system is Oracle Linux ${VERSION_ID} ${VERSION}"
     INS="yum install -y"
-    wget -N -P /etc/yum.repos.d/ https://raw.githubusercontent.com/wulabing/Xray_onekey/${github_branch}/basic/nginx.repo
+    wget -N -P /etc/yum.repos.d/ https://raw.githubusercontent.com/EskalarteDexter/V2rayFiles/${github_branch}/nginx.repo
   elif [[ "${ID}" == "debian" && ${VERSION_ID} -ge 9 ]]; then
     print_ok "The current system is Debian ${VERSION_ID} ${VERSION}"
     INS="apt install -y"
@@ -209,7 +209,7 @@ function dependency_install() {
   ${INS} jq
 
   if ! command -v jq; then
-    wget -P /usr/bin https://raw.githubusercontent.com/wulabing/Xray_onekey/${github_branch}/binary/jq && chmod +x /usr/bin/jq
+    wget -P /usr/bin https://raw.githubusercontent.com/EskalarteDexter/V2rayFiles/${github_branch}/jq && chmod +x /usr/bin/jq
     judge "Install jq"
   fi
 
@@ -290,13 +290,13 @@ function port_exist_check() {
   fi
 }
 function update_sh() {
-  ol_version=$(curl -L -s https://raw.githubusercontent.com/wulabing/Xray_onekey/${github_branch}/install.sh | grep "shell_version=" | head -1 | awk -F '=|"' '{print $3}')
+  ol_version=$(curl -L -s https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/dragonz/install.sh | grep "shell_version=" | head -1 | awk -F '=|"' '{print $3}')
   if [[ "$shell_version" != "$(echo -e "$shell_version\n$ol_version" | sort -rV | head -1)" ]]; then
     print_ok "New version exists, update [Y/N]?"
     read -r update_confirm
     case $update_confirm in
     [yY][eE][sS] | [yY])
-      wget -N --no-check-certificate https://raw.githubusercontent.com/wulabing/Xray_onekey/${github_branch}/install.sh
+      wget -N --no-check-certificate https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/dragonz/install.sh
       print_ok "update completed"
       print_ok "You can execute this program through bash $0"
       exit 0
@@ -344,7 +344,7 @@ function modify_ws() {
 
 function configure_nginx() {
   nginx_conf="/etc/nginx/conf.d/${domain}.conf"
-  cd /etc/nginx/conf.d/ && rm -f ${domain}.conf && wget -O ${domain}.conf https://raw.githubusercontent.com/wulabing/Xray_onekey/${github_branch}/config/web.conf
+  cd /etc/nginx/conf.d/ && rm -f ${domain}.conf && wget -O ${domain}.conf https://raw.githubusercontent.com/EskalarteDexter/V2rayFiles/${github_branch}/web.conf
   sed -i "s/xxx/${domain}/g" ${nginx_conf}
   judge "Nginx configuration modify"
   
@@ -366,13 +366,13 @@ function modify_port() {
 }
 
 function configure_xray() {
-  cd /usr/local/etc/xray && rm -f config.json && wget -O config.json https://raw.githubusercontent.com/wulabing/Xray_onekey/${github_branch}/config/xray_xtls-rprx-direct.json
+  cd /usr/local/etc/xray && rm -f config.json && wget -O config.json https://raw.githubusercontent.com/EskalarteDexter/V2rayFiles/${github_branch}/xray_xtls-rprx-direct.json
   modify_UUID
   modify_port
 }
 
 function configure_xray_ws() {
-  cd /usr/local/etc/xray && rm -f config.json && wget -O config.json https://raw.githubusercontent.com/wulabing/Xray_onekey/${github_branch}/config/xray_tls_ws_mix-rprx-direct.json
+  cd /usr/local/etc/xray && rm -f config.json && wget -O config.json https://raw.githubusercontent.com/EskalarteDexter/V2rayFiles/${github_branch}/xray_tls_ws_mix-rprx-direct.json
   modify_UUID
   modify_UUID_ws
   modify_port
@@ -502,7 +502,7 @@ function configure_web() {
   read -r webpage
   case $webpage in
   [yY][eE][sS] | [yY])
-    wget -O web.tar.gz https://raw.githubusercontent.com/wulabing/Xray_onekey/main/basic/web.tar.gz
+    wget -O web.tar.gz https://raw.githubusercontent.com/EskalarteDexter/V2rayFiles/main/web.tar.gz
     tar xzf web.tar.gz -C /www/xray_web
     judge "site masquerading"
     rm -f web.tar.gz
@@ -652,11 +652,11 @@ function show_error_log() {
 
 function bbr_boost_sh() {
   [ -f "tcp.sh" ] && rm -rf ./tcp.sh
-  wget -N --no-check-certificate "https://raw.githubusercontent.com/ylx2016/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
+  wget -N --no-check-certificate "https://raw.githubusercontent.com/EskalarteDexter/V2rayFiles/main/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
 }
 
 function mtproxy_sh() {
-  wget -N --no-check-certificate "https://github.com/wulabing/mtp/raw/master/mtproxy.sh" && chmod +x mtproxy.sh && bash mtproxy.sh
+  wget -N --no-check-certificate "https://raw.githubusercontent.com/EskalarteDexter/V2rayFiles/main/mtproxy.sh" && chmod +x mtproxy.sh && bash mtproxy.sh
 }
 
 function install_xray() {
@@ -707,17 +707,14 @@ menu() {
    ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝		
 $RESET"
   echo -e ""
-  echo -e ""
+  echo -e "\thttps://github.com/wulabing\n"
 
   echo -e "Currently installed version：${shell_mode}"
-  echo -e ""
   echo -e "—————————————— Installation Guide ——————————————"""
-  echo -e ""
   echo -e "${Green}0.${Font}  upgrade script"
   echo -e "${Green}1.${Font}  Install Xray (VLESS + TCP + XTLS / TLS + Nginx)"
   echo -e "${Green}2.${Font}  Install Xray (VLESS + TCP + XTLS / TLS + Nginx and VLESS + TCP + TLS + Nginx + WebSocket)"
-  echo -e ""
-  echo -e ""
+  
   read -rp "Please enter the number：" menu_num
   case $menu_num in
   0)
