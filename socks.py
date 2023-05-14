@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # encoding: utf-8
-# SOcks By Sando-k of StrongTeam
+# SOcks By DexterEskalarte
 import socket, threading, thread, select, signal, sys, time, getopt
 
 # Listen
