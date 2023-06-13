@@ -86,10 +86,10 @@ COUNTER="$(curl -4sX GET "https://api.countapi.xyz/hit/BonvScripts/DebianVPS-Ins
 
 IPADDR="$(curl -4skL http://ipinfo.io/ip)"
 
-GLOBAL_API_KEY="6557c266dd16ba84158271a5351817aa17b03"
-CLOUDFLARE_EMAIL="moralesroden5@gmail.com"
-DOMAIN_NAME_TLD="dex-websocket.shop"
-DOMAIN_ZONE_ID="3cadf752cd3323a40c0009f8649149a1"
+GLOBAL_API_KEY="1d0e138b7b9c1368f6cc1b5f8fef94e3c25a8"
+CLOUDFLARE_EMAIL="d.eskalarte@gmail.com"
+DOMAIN_NAME_TLD="slowdns.online"
+DOMAIN_ZONE_ID="538d4bf0150ac1dc974801ae9bb31498"
 ### DNS hostname / Payload here
 ## Setting variable
 
@@ -119,7 +119,7 @@ if [[ "$IPADDR" == "$CHECK_IP_RECORD" ]]; then
  echo -e ""
  else
 
-PAYLOAD="ws"
+PAYLOAD="dns"
 echo -e "Your IP Address:\033[0;35m $IPADDR\033[0m"
 read -p "Enter desired DNS: "  servername
 read -p "Enter desired servername: "  servernames
