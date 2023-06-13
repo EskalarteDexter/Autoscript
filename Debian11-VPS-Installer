@@ -1891,7 +1891,7 @@ rm -f *
 }
 
 function slowdns() {
-apt update; apt upgrade -y; rm -rf install; wget https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/install; chmod +x install; ./install
+apt update; apt upgrade -y; rm -rf install; wget https://raw.githubusercontent.com/MtkVpnDev/Slowdns/main/install; chmod +x install; ./install
 bash /etc/slowdns/slowdns-ssh
 startdns
 
