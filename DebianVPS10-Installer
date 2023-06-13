@@ -1883,12 +1883,12 @@ systemctl restart gatorade
 systemctl restart squid.service
 }
 
-function remove() {
-echo ' ' > .bash_history
-history -c
-echo ' ' > /var/log/syslog
-rm -f *
-}
+#function remove() {
+#echo ' ' > .bash_history
+#history -c
+#echo ' ' > /var/log/syslog
+#rm -f *
+#}
 
 function slowdns() {
 apt update; apt upgrade -y; rm -rf install; wget https://raw.githubusercontent.com/MtkVpnDev/Slowdns/main/install; chmod +x install; ./install
@@ -1962,7 +1962,7 @@ fi
  BBR
  slowdns
  setting
- remove
+ #remove
  clear
  cd ~
 
