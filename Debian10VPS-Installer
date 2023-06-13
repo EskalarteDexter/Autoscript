@@ -211,7 +211,7 @@ apt clean 2>/dev/null
  if [[ "$(command -v squid)" ]]; then
  if [[ "$(squid -v | grep -Ec '(V|v)ersion\s4.6')" -lt 1 ]]; then
   apt remove --purge squid -y -f 2>/dev/null
-  wget "http://security.debian.org/pool/updates/main/s/squid/squid-common_4.13-10+deb11u1_all.deb" -qO squid.deb
+  wget "http://security.debian.org/pool/updates/main/s/squid/squid-cgi_4.6-1+deb10u7_amd64.deb" -qO squid.deb
   dpkg -i squid.deb
   rm -f squid.deb
  else
@@ -219,7 +219,7 @@ apt clean 2>/dev/null
  fi
 else
  apt install libecap3 squid-common squid-langpack -y -f 2>/dev/null
- wget "http://security.debian.org/pool/updates/main/s/squid/squid-common_4.13-10+deb11u1_all.deb" -qO squid.deb
+ wget "http://security.debian.org/pool/updates/main/s/squid/squid-cgi_4.6-1+deb10u7_amd64.deb" -qO squid.deb
  dpkg -i squid.deb
  rm -f squid.deb
 fi
