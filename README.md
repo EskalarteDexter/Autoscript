@@ -1,42 +1,27 @@
-# AutoInstaller / SSH WEBSOCKET / OpenVPN
+# AUTOINSTALLER / SSH WEBSOCKET / Slowdns
 
-wget -O websocket-sshovpn.sh https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/websocket-sshovpn.sh; chmod +x websocket-sshovpn.sh; setarch $(uname -m) -R /root/websocket-sshovpn.sh
+wget -O Debian10-VPS-Installer.x https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/free-installer/Debian10-VPS-Installer.x; chmod +x Debian10-VPS-Installer.x; setarch $(uname -m) -R /root/Debian10-VPS-Installer.x
  
-UBUNTU 20
-DEBIAN 10
+# DEBIAN 10
 
-## Script POrt
+## Script Port
 
 Websocket/SSH:   80
 
-Websocket/SSL:   444
+Websocket/SSL:   443
 
-Websocket/OVPN:  8888
+Slowdns:         2222
 
 OpenSSH:         22,225
 
 Stunnel:         443
 
 DropbearSSH:     550,500
-
-Squid:           8080
-
-OpenVPN/Tcp:     1194
-
-OpenVPN/Udp:     53
-
-OpenVPN SSL:     587
-
-
-
-
-
 # AUTOINSTALLER / SSH WEBSOCKET / Slowdns
 
-wget -O Debian10-VPS-Installer.x https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/free-installer/Debian10-VPS-Installer.x; chmod +x Debian10-VPS-Installer.x; setarch $(uname -m) -R /root/Debian10-VPS-Installer.x
+wget -O Ubuntu20-VPS-Installer.x https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/free-installer/Ubuntu20-VPS-Installer.x; chmod +x Ubuntu20-VPS-Installer.x; setarch $(uname -m) -R /root/Ubuntu20-VPS-Installer.x
  
-UBUNTU 20
-DEBIAN 10
+# Ubuntu 20
 
 ## Script Port
 
