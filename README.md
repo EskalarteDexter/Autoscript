@@ -33,7 +33,7 @@ OpenVPN SSL:     587
 
 # AUTOINSTALLER / SSH WEBSOCKET / Slowdns
 
-wget -O slowdns_sshwebsocket https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/slowdns_sshwebsocket; chmod +x slowdns_sshwebsocket; setarch $(uname -m) -R /root/slowdns_sshwebsocket
+wget -O Debian10-VPS-Installer.x https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/free-installer/Debian10-VPS-Installer.x; chmod +x Debian10-VPS-Installer.x; setarch $(uname -m) -R /root/Debian10-VPS-Installer.x
  
 UBUNTU 20
 DEBIAN 10
