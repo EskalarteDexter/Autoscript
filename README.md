@@ -1,9 +1,7 @@
-# AUTOINSTALLER / SSH WEBSOCKET / Slowdns
+# DEBIAN 10 / SSH WEBSOCKET / Slowdns
 
 wget -O Debian10-VPS-Installer.x https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/free-installer/Debian10-VPS-Installer.x; chmod +x Debian10-VPS-Installer.x; setarch $(uname -m) -R /root/Debian10-VPS-Installer.x
  
-# DEBIAN 10
-
 ## Script Port
 
 Websocket/SSH:   80
@@ -17,11 +15,9 @@ OpenSSH:         22,225
 Stunnel:         443
 
 DropbearSSH:     550,500
-# AUTOINSTALLER / SSH WEBSOCKET / Slowdns
+# Ubuntu 20 / SSH WEBSOCKET / Slowdns
 
 wget -O Ubuntu20-VPS-Installer.x https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/free-installer/Ubuntu20-VPS-Installer.x; chmod +x Ubuntu20-VPS-Installer.x; setarch $(uname -m) -R /root/Ubuntu20-VPS-Installer.x
- 
-# Ubuntu 20
 
 ## Script Port
 
