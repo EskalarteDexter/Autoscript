@@ -1,7 +1,9 @@
 # AutoInstaller / SSH WEBSOCKET / OpenVPN
+
+wget -O websocket-sshovpn.sh https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/websocket-sshovpn.sh; chmod +x websocket-sshovpn.sh; setarch $(uname -m) -R /root/websocket-sshovpn.sh
  
-UBUNTU 18
-DEBIAN 9
+UBUNTU 20
+DEBIAN 10
 
 ## Script POrt
 
@@ -25,22 +27,22 @@ OpenVPN/Udp:     53
 
 OpenVPN SSL:     587
 
-## SCRIPT LINK HERE
 
-wget -O websocket-sshovpn.sh https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/websocket-sshovpn.sh; chmod +x websocket-sshovpn.sh; setarch $(uname -m) -R /root/websocket-sshovpn.sh
 
 
 
 # AUTOINSTALLER / SSH WEBSOCKET / Slowdns
+
+wget -O slowdns_sshwebsocket https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/slowdns_sshwebsocket; chmod +x slowdns_sshwebsocket; setarch $(uname -m) -R /root/slowdns_sshwebsocket
  
-UBUNTU 18
-DEBIAN 9
+UBUNTU 20
+DEBIAN 10
 
 ## Script Port
 
 Websocket/SSH:   80
 
-Websocket/SSL:   444
+Websocket/SSL:   443
 
 Slowdns:         2222
 
@@ -50,11 +52,9 @@ Stunnel:         443
 
 DropbearSSH:     550,500
 
-Squid:           8080
+Squid:           8080,8000
 
-## SCRIPT LINK HERE
 
-wget -O slowdns_sshwebsocket https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/slowdns_sshwebsocket; chmod +x slowdns_sshwebsocket; setarch $(uname -m) -R /root/slowdns_sshwebsocket
 
 
 
