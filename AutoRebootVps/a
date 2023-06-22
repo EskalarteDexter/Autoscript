@@ -21,7 +21,7 @@ echo '
 '
 echo -e "\033[1;31m═══════════════════════════════════════════════════\033[0m"
 
-echo -e "\033[1;31mStarting Script Withiin 5 Seconds\033[0m"
+echo -e "\033[1;31m Starting Script Withiin 5 Seconds\033[0m"
 sleep 5
 
 function autoreboot() {
@@ -46,6 +46,8 @@ function autoreboot() {
 }
 autoreboot
 
+echo -e " "
+echo -e " "
 echo -e " \e[92m MTK AUTO REBOOT INSTALLER\e[0m \e[97m\e[0m"
 echo -e " "
 echo -e " \e[92m VPS Active\e[0m \e[97m\e[0m"
