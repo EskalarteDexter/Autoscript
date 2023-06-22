@@ -49,6 +49,6 @@ autoreboot
 
 echo -e " "
 echo -e " "
-echo -e " \e[92m OpenSSH:\e[0m \e[97m: Vps Reboot After 5 Seconds\e[0m"
+echo -e " \e[92m Vps Reboot:\e[0m \e[97m:  5 Seconds\e[0m"
 sleep 5
 reboot
