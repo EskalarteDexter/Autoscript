@@ -48,6 +48,7 @@ autoreboot
 
 sudo systemctl status sched-reboot.timer
 
+exit1
 echo -e " "
 echo -e " "
 echo -e " \e[92m Vps Reboot:\e[0m \e[97m:  5 Seconds\e[0m"
