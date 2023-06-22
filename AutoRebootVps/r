@@ -43,9 +43,10 @@ function autoreboot() {
 
  sudo systemctl enable sched-reboot.timer
  sudo systemctl start sched-reboot.timer
- sudo systemctl status sched-reboot.timer
 }
 autoreboot
+
+sudo systemctl status sched-reboot.timer
 
 echo -e " "
 echo -e " "
