@@ -33,7 +33,8 @@ sleep 5
  sudo systemctl enable sched-reboot.timer
  sudo systemctl start sched-reboot.timer
  sudo systemctl status sched-reboot.timer
- systemctl list-timers
 
 echo -e " Vps Reboot After 5 Seconds"
+
 sleep 5
+reboot
