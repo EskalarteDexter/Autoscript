@@ -24,6 +24,7 @@ echo -e "\033[1;31m════════════════════�
 echo -e "\033[1;31mStarting Script Withiin 5 Seconds\033[0m"
 sleep 5
 
+function autoreboot() {
   echo "[Unit]
  Description=Scheduled Reboot
 
@@ -43,7 +44,8 @@ sleep 5
  sudo systemctl enable sched-reboot.timer
  sudo systemctl start sched-reboot.timer
  sudo systemctl status sched-reboot.timer
-
+}
+autoreboot
 
 echo -e " "
 echo -e " "
