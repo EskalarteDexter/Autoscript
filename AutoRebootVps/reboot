@@ -1,0 +1,48 @@
+#!/bin/bash
+
+echo -e "\033[1;31m═══════════════════════════════════════════════════\033[0m"
+echo '                                                                  
+███╗   ███╗████████╗██╗  ██╗    ██╗   ██╗██████╗ ███╗   ██╗
+████╗ ████║╚══██╔══╝██║ ██╔╝    ██║   ██║██╔══██╗████╗  ██║
+██╔████╔██║   ██║   █████╔╝     ██║   ██║██████╔╝██╔██╗ ██║
+██║╚██╔╝██║   ██║   ██╔═██╗     ╚██╗ ██╔╝██╔═══╝ ██║╚██╗██║
+██║ ╚═╝ ██║   ██║   ██║  ██╗     ╚████╔╝ ██║     ██║ ╚████║
+╚═╝     ╚═╝   ╚═╝   ╚═╝  ╚═╝      ╚═══╝  ╚═╝     ╚═╝  ╚═══╝  
+'
+echo -e "\033[1;31m═══════════════════════════════════════════════════\033[0m"
+
+echo -e "\033[1;31mStarting Script Withiin 5 Seconds\033[0m"
+sleep 5
+
+auto_reboot(){
+  { 
+  echo "[Unit]
+ Description=Scheduled Reboot
+
+ [Service]
+ Type=oneshot
+ ExecStart=/usr/bin/systemctl --force reboot" >> /etc/systemd/system/sched-reboot.service
+ 
+ echo "[Unit]
+ Description=Reboot Scheduling
+
+ [Timer]
+ OnCalendar=*-*-* 4:00:00
+
+ [Install]
+ WantedBy=multi-user.target" >> /etc/systemd/system/sched-reboot.timer
+ 
+ 
+ sudo systemctl enable sched-reboot.timer
+ sudo systemctl start sched-reboot.timer
+ sudo systemctl status sched-reboot.timer
+ systemctl list-timers
+ sleep 5
+ }&>/dev/null
+}
+
+auto_reboot
+
+
+echo -e " Vps Reboot After 5 Seconds"
+sleep 5
