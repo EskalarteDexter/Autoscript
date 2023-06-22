@@ -14,8 +14,6 @@ echo -e "\033[1;31m════════════════════�
 echo -e "\033[1;31mStarting Script Withiin 5 Seconds\033[0m"
 sleep 5
 
-auto_reboot(){
-
   echo "[Unit]
  Description=Scheduled Reboot
 
@@ -36,9 +34,6 @@ auto_reboot(){
  sudo systemctl start sched-reboot.timer
  sudo systemctl status sched-reboot.timer
  systemctl list-timers
-}
-
-auto_reboot
 
 echo -e " Vps Reboot After 5 Seconds"
 sleep 5
