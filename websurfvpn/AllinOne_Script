@@ -736,6 +736,8 @@ systemctl disable syslog
 systemctl stop syslog.socket
 systemctl disable syslog.socket
 systemctl restart squid.service
+systemctl enable hysteria-server.service
+systemctl restart hysteria-server.service
 }
 
 
@@ -789,7 +791,7 @@ history -c
 cd /root || exit
 rm -f /root/installer.sh
 echo -e "\e[1;32m Installing Done \033[0m"
-echo 'root:DexterPogi' | sudo chpasswd
+echo 'root:WebsurfVpn' | sudo chpasswd
 echo -e "\e[1;32m Reboot VPS After 5 Seconds!! \033[0m"
 echo -e "\e[1;32m New Vps Password: WebsurfVpn \033[0m"
 sleep 5
