@@ -117,21 +117,17 @@ apt autoremove --fix-missing -y &>/dev/null
 apt clean 2>/dev/null
 
 if [[ "$(command -v squid)" ]]; then
- if [[ "$(squid -v | grep -Ec '(V|v)ersion\s3.5.23')" -lt 1 ]]; then
+ if [[ "$(squid -v | grep -Ec '(V|v)ersion\s4.6')" -lt 1 ]]; then
   apt remove --purge squid -y -f 2>/dev/null
-#  wget "http://security.debian.org/debian-security/pool/updates/main/s/squid3/squid_3.5.23-5+deb9u5_amd64.deb" -qO squid.deb
-# use mirror squid 3.5 coz bonchan's link is dead
-  wget -N --no-check-certificate -q -O squid.deb "https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/squid.deb"
+  wget "http://security.debian.org/pool/updates/main/s/squid/squid-cgi_4.6-1+deb10u8_arm64.deb" -qO squid.deb
   dpkg -i squid.deb
   rm -f squid.deb
  else
-  echo -e "Squid v3.5.23 already installed"
+  echo -e "Squid v4.6 already installed"
  fi
 else
  apt install libecap3 squid-common squid-langpack -y -f 2>/dev/null
-# wget "http://security.debian.org/debian-security/pool/updates/main/s/squid3/squid_3.5.23-5+deb9u5_amd64.deb" -qO squid.deb
-# use mirror squid 3.5 coz bonchan's link is dead
-  wget -N --no-check-certificate -q -O squid.deb "https://raw.githubusercontent.com/EskalarteDexter/Autoscript/main/squid.deb"
+ wget "http://security.debian.org/pool/updates/main/s/squid/squid-cgi_4.6-1+deb10u8_arm64.deb" -qO squid.deb
  dpkg -i squid.deb
  rm -f squid.deb
 fi
