@@ -5,7 +5,7 @@
   "up_mbps": 100,
   "down_mbps": 100,
   "disable_udp": false,
-  "obfs": "websurfvpn",
+  "obfs": "websurf",
   "auth": {
     "mode": "passwords",
     "config": ["vpnwebsurf"]
