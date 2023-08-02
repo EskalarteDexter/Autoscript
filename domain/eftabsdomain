@@ -1,0 +1,4 @@
+#!/bin/bash
+read -p "Enter your DNS: " domain
+clear
+if [[ $domain =~ "um-connect.xyz" ]]; then
