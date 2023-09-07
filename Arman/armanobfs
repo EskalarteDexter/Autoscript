@@ -1,0 +1,13 @@
+{
+  "listen": ":65535",
+  "cert": "/etc/hysteria/hysteria.crt",
+  "key": "/etc/hysteria/hysteria.key",
+  "up_mbps": 100,
+  "down_mbps": 100,
+  "disable_udp": false,
+  "obfs": "arman",
+  "auth": {
+    "mode": "passwords",
+    "config": ["arman123", "firenetdev"]
+  }
+}
