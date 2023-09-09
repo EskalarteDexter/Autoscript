@@ -8,12 +8,11 @@ DBNAME='ce7venco_freefakehub';
 PORT_TCP='1194';
 PORT_UDP='53';
 
-timedatectl set-timezone Asia/Riyadh
+timedatectl set-timezone Asia/Manila
 
 install_require () {
 clear
-echo 'Installing dependencies.'
-{
+
 export DEBIAN_FRONTEND=noninteractive
 apt update
 apt install -y curl wget cron python-minimal libpython-stdlib
@@ -23,8 +22,7 @@ apt install -y screen squid stunnel4 dropbear gnutls-bin python
 apt install -y dos2unix nano unzip jq virt-what net-tools default-mysql-client
 apt install -y mlocate dh-make libaudit-dev build-essential fail2ban
 clear
-}&>/dev/null
-clear
+#}&>/dev/null
 }
 
 install_squid(){
