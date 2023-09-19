@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+udpfixer () {
+
 echo "net.ipv4.ip_forward=1
 net.ipv4.conf.all.rp_filter=0
 net.ipv4.conf.eth0.rp_filter=0
@@ -14,3 +17,6 @@ systemctl enable hysteria-server.service
 systemctl restart hysteria-server.service
 
 reboot
+}
+
+udpfixer
