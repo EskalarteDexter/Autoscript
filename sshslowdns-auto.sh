@@ -767,9 +767,6 @@ clear
 echo -e " \033[0;35m══════════════════════════════════════════════════════════════════\033[0m"
 figlet -k Dexter | awk '{gsub(/./,"\033[3"int(rand()*5+1)"m&\033[0m")}1'
 echo -e " \033[0;35m══════════════════════════════════════════════════════════════════\033[0m"
-echo ""
-echo "${T_GREEN}MTK SLOWDNS Installation completed!${T_RESET}"
-echo ""
 }
 
 ports () {
